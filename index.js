@@ -7,11 +7,14 @@ import {
   StyleSheet,
   Text,
   View,
-  VrButton
+  VrButton,
+  //
+  Environment
 } from 'react-360';
 
 import {Surface} from 'react-360-web';
 const surfaceModule = NativeModules.surfaceModule;
+
 
 class InfoPanel extends React.Component {
   state = {
@@ -53,13 +56,14 @@ class InfoPanel extends React.Component {
       <View style={styles.displayPanel}
             hitSlop={20}
             onEnter={() => this.transformDisplay(this.props.id)}
-            onExit={() => this.resetPanel(this.props.id)}>
-        <Image source={asset(`${img.name}`)} style={{width: img.width, height: img.height}} />
-        <View style={styles.attractionBox}>
-          <Text style={styles.attractionText}>
+            onExit={() => this.resetPanel(this.props.id)}>   
+        <Image source={asset(`${img.name}`)} style={{width: img.width, height: img.height}} onEnter={() => Environment.setBackgroundImage(asset('development_background_final.png'))}/>
+        <View style={styles.attractionBox} >
+          <Text style={styles.attractionText} >
             {this.props.text}
           </Text>
         </View>
+         
       </View>
     );
   }
@@ -71,10 +75,10 @@ export default class TourismVR extends React.Component {
     return (
       <View>
         <Image source={asset('ff4.png')} style={{width: 150, height: 150, position: 'center'}} />
-        <View style={styles.attractionBox}>
-          <VrButton onClick={() => surfaceModule.start()}>
-            <Text style={styles.attractionText}>
-              Welcome to PCologyVR!
+        <View style={styles.attractionBox} >
+          <VrButton onClick={() => {surfaceModule.start(); Environment.setBackgroundImage(asset('2nd_final.png')) } }>
+            <Text style={styles.attractionText} >
+              Welcome to PCology360!
             </Text>
           </VrButton>
         </View>

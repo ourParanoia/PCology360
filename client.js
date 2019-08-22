@@ -24,47 +24,58 @@ function init(bundle, parent, options = {}) {
     introPanel
   );
 
-  marketPanel = new Surface(
+  storiesPanel = new Surface(
     100,
     100,
     Surface.SurfaceShape.Flat
   )
 
-  marketPanel.setAngle(
-    0.2, /* yaw angle */
+  storiesPanel.setAngle(
+    Math.PI / 2,  /* yaw angle */
     0 /* pitch angle */
   );
 
-  museumPanel = new Surface(
+  interestingPanel = new Surface(
     100,
     100,
     Surface.SurfaceShape.Flat
   )
 
-  museumPanel.setAngle(
-    Math.PI / 2, /* yaw angle */
-    0 /* pitch angle */
-  );
-
-  restaurantPanel = new Surface(
-    100,
-    100,
-    Surface.SurfaceShape.Flat
-  )
-
-  restaurantPanel.setAngle(
+  interestingPanel.setAngle(
     -Math.PI / 2, /* yaw angle */
     0 /* pitch angle */
   );
 
-  shoppingPanel = new Surface(
+  tipsPanel = new Surface(
+    100,
+    100,
+    Surface.SurfaceShape.Flat
+  )
+
+  tipsPanel.setAngle(
+    Math.PI / 4, /* yaw angle */
+    0 /* pitch angle */
+  );
+
+  developmentPanel = new Surface(
     100,
     100,
     Surface.SurfaceShape.Flat
   );
 
-  shoppingPanel.setAngle(
-    3.6, /* yaw angle */
+  developmentPanel.setAngle(
+    -Math.PI / 4, /* yaw angle */
+    0 /* pitch angle */
+  );
+
+  photoshootingPanel = new Surface(
+    100,
+    100,
+    Surface.SurfaceShape.Flat
+  );
+
+  photoshootingPanel.setAngle(
+    -Math.PI , /* yaw angle */
     0 /* pitch angle */
   );
 
@@ -75,7 +86,7 @@ function init(bundle, parent, options = {}) {
   );
 
   newsPanel.setAngle(
-    10.6, /* yaw angle */
+    Math.PI, /* yaw angle */
     0 /* pitch angle */
   );
 
@@ -91,18 +102,21 @@ class surfaceModule extends Module {
   constructor() {
     super('surfaceModule');
   }
-
+  
   resizeSurface(width, height, id) {
     if (id === 'interesting') {
-      museumPanel.resize(width, height);
+      interestingPanel.resize(width, height);
     } else if (id === 'tips') {
-      restaurantPanel.resize(width, height);
-    } else if (id === 'shopping') {
-      shoppingPanel.resize(width, height);
+      tipsPanel.resize(width, height);
+    } else if (id === 'development') {
+      developmentPanel.resize(width, height);
     } else if (id === 'stories') {
-      marketPanel.resize(width, height);
+      storiesPanel.resize(width, height);
     } else if (id === 'news') {
       newsPanel.resize(width, height);
+    }
+    else if (id === 'photoshooting') {
+      photoshootingPanel.resize(width, height);
     }
   }
 
@@ -110,31 +124,37 @@ class surfaceModule extends Module {
     r360.renderToSurface(
       r360.createRoot('InfoPanel', { id: 'stories',
                                      text: 'Browse stories.' }),
-      marketPanel,
+      storiesPanel,
     );
 
     r360.renderToSurface(
-      r360.createRoot('InfoPanel', { id: 'shopping',
+      r360.createRoot('InfoPanel', { id: 'development',
                                      text: 'Browse development.'}),
-      shoppingPanel,
+      developmentPanel,
     );
 
     r360.renderToSurface(
       r360.createRoot('InfoPanel', { id: 'interesting',
                                      text: 'Browse interesting.'}),
-      museumPanel,
+      interestingPanel,
     );
 
     r360.renderToSurface(
       r360.createRoot('InfoPanel', { id: 'tips',
                                      text: 'Browse tips.' }),
-      restaurantPanel,
+      tipsPanel,
     );
 
     r360.renderToSurface(
       r360.createRoot('InfoPanel', { id: 'news',
                                      text: 'Browse news.' }),
       newsPanel,
+    );
+
+    r360.renderToSurface(
+      r360.createRoot('InfoPanel', { id: 'photoshooting',
+                                     text: 'Browse photoshooting.' }),
+      photoshootingPanel,
     );
 
     r360.detachRoot(introRoot);
